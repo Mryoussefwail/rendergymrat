@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="./css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+
+</head>
+<body>
+<!-- header section strats -->
+
+<div class="heading_container col-12">
+    <h2>
+        GYM RAT
+    </h2>
+</div>
+<section class=" slider_section position-relative">
+
+
+    <!-- Login Form -->
+    <form id="loginForm"  method="post" class="container center_div" >
+        <div class="form-group">
+            <label class="form-label" for="email">Email:</label>
+            <input type="text" id="email" name="email" required class="form-control form-control-lg">
+
+        </div>
+        <div class="form-outline mb-4">
+            <label for="password" class="form-label">Password:</label>
+            <input class="form-control form-control-lg" type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" id="button" class="btn btn-primary btn-block">Login</button>
+        <div class="col">
+            <!-- Simple link -->
+            <a href="/register">Register</a>
+        </div>
+    </form>
+
+</div>
+</section>
+<script>
+
+
+    // Assuming you have a button with id "button"
+    const button = document.getElementById('button');
+
+    button.addEventListener("click", function() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    alert("Wrong Email or password ");
+                }
+                if (response.url.includes('/login')) {
+                    // Display alert for wrong email or password
+                    alert("Wrong Email or password");
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Request successful, handle response
+                console.log(data);
+            })
+            .catch(error => {
+                // Request failed, handle error
+                console.error('Fetch error:', error);
+            });
+    });
+
+
+
+</script>
+
+</body>
+</html>
