@@ -14,7 +14,7 @@ public class VideoRepository {
         this.jdbc=jdbcTemplate;
     }
     public Video getVideoByID(int id){
-        String sql="select * from gymrat.video where ID = ?";
+        String sql="select * from video where ID = ?";
         List<Video>videos=jdbc.query(sql,new VideoRowMapper(),id);
          if (videos.size()==0){
             return null;
@@ -22,7 +22,7 @@ public class VideoRepository {
          return videos.get(0);
     }
     public Video getVideoByFilePath(String path){
-        String sql="select * from gymrat.video where filepath = ?";
+        String sql="select * from video where filepath = ?";
         List<Video>videos=jdbc.query(sql,new VideoRowMapper(),path);
         if (videos.size()==0){
             return null;
@@ -30,7 +30,7 @@ public class VideoRepository {
         return videos.get(0);
     }
     public List<Video> getAllVideos(){
-        String sql="select * from gymrat.video ";
+        String sql="select * from video ";
         List<Video>videos=jdbc.query(sql,new VideoRowMapper());
         if (videos.size()==0){
             return null;
@@ -38,7 +38,7 @@ public class VideoRepository {
         return videos;
     }
     public List<Video> getVideosByUserID(int id){
-        String sql="select * from gymrat.video where UserID = ?";
+        String sql="select * from video where UserID = ?";
         List<Video>videos=jdbc.query(sql,new VideoRowMapper(),id);
         if (videos.size()==0){
             return null;
@@ -47,7 +47,7 @@ public class VideoRepository {
     }
 
     public void addVideo(Video video) {
-        String sql="insert into gymrat.video values (NULL ,?,?,?,?,?,?)";
+        String sql="insert into video values (NULL ,?,?,?,?,?,?)";
         jdbc.update(sql,video.getName(),video.getFilePath(),video.getType(),video.getImageData(),video.getUserid(),video.getUsertype());
     }
 

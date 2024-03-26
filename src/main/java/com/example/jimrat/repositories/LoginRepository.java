@@ -40,7 +40,7 @@ public class LoginRepository {
     }
 
     public Gym loginGym(String email, String password) {
-        String sql="select * from gymrat.gym where GymName = ?";
+        String sql="select * from gym where GymName = ?";
         List<Gym>gyms=jdbc.query(sql,new GymRowMapper(),email);
         if (gyms==null){
             return null;

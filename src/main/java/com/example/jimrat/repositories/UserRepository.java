@@ -28,10 +28,10 @@ public class UserRepository {
         return jdbc.query(sql,new TrainerRowMapper());
     }
     public User getUserByEmail(String email){
-        String sql="select * from gymrat.trainer where Email = ?";
+        String sql="select * from trainer where Email = ?";
         List<Trainer> trainers=  jdbc.query(sql,new TrainerRowMapper(),email);
         if(trainers.size() ==0){
-            String sql2="select * from gymrat.coach where Email = ?";
+            String sql2="select * from coach where Email = ?";
             List<Coach>coaches=jdbc.query(sql2,new CoachRowMapper(),email);
             if(coaches.size()==0){
                 return null;

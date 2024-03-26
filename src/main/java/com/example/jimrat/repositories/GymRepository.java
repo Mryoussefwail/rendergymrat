@@ -21,11 +21,11 @@ public class GymRepository {
         this.loggedUserManagmentService=loggedUserManagmentService;
     }
     public List<Gym> getAllGyms(){
-        String sql="select * from gymrat.gym";
+        String sql="select * from gym";
         return jdbc.query(sql,new GymRowMapper());
     }
     public Gym getGymById(int id){
-        String sql="select * from gymrat.gym where GymID = ?";
+        String sql="select * from gym where GymID = ?";
         List<Gym>gym= jdbc.query(sql,new GymRowMapper(),id);
         if (gym.size()==0){
             return null;
@@ -35,7 +35,7 @@ public class GymRepository {
         }
     }
     public Gym getGymByName(String name){
-        String sql="select * from gymrat.gym where GymName = ?";
+        String sql="select * from gym where GymName = ?";
         List<Gym>gym= jdbc.query(sql,new GymRowMapper(),name);
         if (gym.size()==0){
             return null;
@@ -45,11 +45,11 @@ public class GymRepository {
         }
     }
     public void storeGym(Gym gym){
-        String sql="insert into gymrat.gym values (null , ?, ?, ?, null,?,?,?,?)";
+        String sql="insert into gym values (null , ?, ?, ?, null,?,?,?,?)";
         jdbc.update(sql,gym.getName(),gym.getLatitude(),gym.getLongitude(),gym.getPassword(),gym.getMonthPrice(),gym.getHalfyearPrice(),gym.getYearPrice());
     }
     public int getGymId(String name){
-        String sql="select * from gymrat.gym where GymName = ?";
+        String sql="select * from gym where GymName = ?";
         List<Gym>gym= jdbc.query(sql,new GymRowMapper(),name);
         if (gym.size()==0){
             return 0;
@@ -62,7 +62,7 @@ public class GymRepository {
         imageRepository.storeImage(image, (int) loggedUserManagmentService.getId(),"gym");
     }
     public Image getProfileImage() {
-        String sql="select * from gymrat.gym where GymID = ?";
+        String sql="select * from gym where GymID = ?";
         List<Gym> gyms=jdbc.query(sql,new GymRowMapper(),loggedUserManagmentService.getId());
         return imageRepository.getImage(gyms.get(0).getImageId());
     }

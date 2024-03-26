@@ -24,15 +24,15 @@ public class TrainerRepository {
         this.imageRepository=imageRepository;
     }
     public void subscribeWithCoach(LoggedUserManagmentService loggedUserManagmentService,int coachID){
-        String sql="update gymrat.trainer set CoachID = ? where UserID = ?";
+        String sql="update trainer set CoachID = ? where UserID = ?";
         jdbc.update(sql,coachID,Math.toIntExact(loggedUserManagmentService.getId()));
     }
     public void subscribeInGym(int trainerId,int gymId){
-        String sql="update gymrat.trainer set GymID = ? where UserID = ?";
+        String sql="update trainer set GymID = ? where UserID = ?";
         jdbc.update(sql,gymId,trainerId);
     }
     public Coach getCaoch(int id){
-        String sql="select * from gymrat.coach  where  gymrat.coach.CoachID in (select CoachID from gymrat.trainer where UserID = ? ); ";
+        String sql="select * from coach  where  coach.CoachID in (select CoachID from trainer where UserID = ? ); ";
         List<Coach> coach =jdbc.query(sql,new  CoachRowMapper(),id);
         if(coach.size()==0){
             return null;
@@ -40,7 +40,7 @@ public class TrainerRepository {
         else {return coach.get(0);}
     }
     public Gym getGym(){
-        String sql="select * from gymrat.gym  where  gymrat.gym.GymID in (select GymID from gymrat.trainer where UserID = ? ); ";
+        String sql="select * from gym  where  gym.GymID in (select GymID from trainer where UserID = ? ); ";
         List<Gym> gyms =jdbc.query(sql,new GymRowMapper(),loggedUserManagmentService.getId());
         if(gyms.size()==0){
             return null;
@@ -48,11 +48,11 @@ public class TrainerRepository {
         else {return gyms.get(0);}
     }
     public List<Coach> getAllCoaches(){
-        String sql="select * from gymrat.coach";
+        String sql="select * from coach";
         return jdbc.query(sql,new CoachRowMapper());
     }
     public List<Gym> getAllGyms(){
-        String sql="select * from gymrat.gym";
+        String sql="select * from gym";
         return jdbc.query(sql,new GymRowMapper());
     }
     public void changeProfileImage(Image image){
@@ -68,13 +68,13 @@ public class TrainerRepository {
         return imageRepository.getImage(trainers.get(0).getImageId());
     }
     public List<Trainer> getAllTrainersinGymId(int id){
-        String sql="select * from gymrat.trainer where GymID = ?";
+        String sql="select * from trainer where GymID = ?";
         List<Trainer> trainers=jdbc.query(sql,new TrainerRowMapper(),id);
         return trainers;
     }
 
     public Coach getSubscripedCoach(int id) {
-        String sql="select * from gymrat.coach join gymrat.trainer on gymrat.coach.CoachID = gymrat.trainer.CoachID where UserID = ?";
+        String sql="select * from coach join trainer on coach.CoachID = trainer.CoachID where UserID = ?";
         List<Coach>coaches=jdbc.query(sql,new CoachRowMapper(),id);
         if (coaches.size()==0){
             return null;
