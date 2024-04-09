@@ -1,21 +1,25 @@
 package com.example.jimrat.controllers;
 
 import com.example.jimrat.models.Image;
+import com.example.jimrat.models.User;
 import com.example.jimrat.repositories.ImageRepository;
+import com.example.jimrat.repositories.UserRepository;
 import com.example.jimrat.services.LoggedUserManagmentService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/photo")
 public class Imagecontroller {
     ImageRepository imageRepository;
+    UserRepository userRepository;
     private final LoggedUserManagmentService loggedUserManagmentService;
-    public Imagecontroller(ImageRepository imageRepository,LoggedUserManagmentService loggedUserManagmentService){
+    public Imagecontroller(UserRepository userRepository,ImageRepository imageRepository,LoggedUserManagmentService loggedUserManagmentService){
         this.imageRepository=imageRepository;
+        this.userRepository=userRepository;
         this.loggedUserManagmentService=loggedUserManagmentService;
     }
     @PostMapping
@@ -34,4 +38,13 @@ public class Imagecontroller {
 
         return imageRepository.getImage(image_id);
     }
+    @GetMapping("/coaches")
+    public List<User> getallCoach(){
+        return userRepository.getAllCoaches();
+    }
+    @GetMapping("/trainee")
+    public List<User> getallTrainees(){
+        return userRepository.getAllTrainers();
+    }
+
 }

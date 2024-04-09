@@ -60,4 +60,5 @@ public class TrainerController {
         imageRepository.storeImage(image, (int) loggedUserManagmentService.getId(),loggedUserManagmentService.getType());
     }
 
+
 }

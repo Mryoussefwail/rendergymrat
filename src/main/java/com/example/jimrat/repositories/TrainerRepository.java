@@ -59,7 +59,7 @@ public class TrainerRepository {
         imageRepository.storeImage(image, (int) loggedUserManagmentService.getId(),loggedUserManagmentService.getType());
     }
     public Image getProfileImage() {
-        String sql="select * from gymrat.trainer where UserID = ?";
+        String sql="select * from trainer where UserID = ?";
         System.out.println(loggedUserManagmentService.getName());
         List<Trainer> trainers=jdbc.query(sql,new TrainerRowMapper(),loggedUserManagmentService.getId());
         if (trainers.size()==0){
